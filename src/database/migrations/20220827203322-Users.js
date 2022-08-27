@@ -10,20 +10,20 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       displayName: {
-        type: Sequelize.STRING(255),
         allowNull: false,
+        type: DataTypes.STRING(255),
       },
       email: {
         type: Sequelize.STRING(255),
         allowNull: false,
       },
       password: {
-        type: Sequelize.STRING(255),
         allowNull: false,
+        type: Sequelize.STRING(255),
       },
       image: {
-        type: Sequelize.STRING(255),
         allowNull: false,
+        type: Sequelize.STRING(255),
       }
     })
   },
