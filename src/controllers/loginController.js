@@ -11,7 +11,7 @@ const login = async (req, res) => {
       return res.status(400).json(resultLogin);
     }
 
-    return res.status(201).json({ token: resultLogin });
+    return res.status(200).json({ token: resultLogin });
   } catch (error) { 
     console.log(error);
     return res.status(500).json(ERROR_MESSAGE);
