@@ -15,11 +15,14 @@ const createUser = async (userData) => {
 };
 
 const getAllUsers = async () => {
-  const users = await User.findAll({
+  const resultAllUsers = await User.findAll({
     attributes: { exclude: ['password'] },
   });
+  if (resultAllUsers.length === 0) {
+    return { message: 'There are no registered users' };
+  }
 
-  return users;
+  return resultAllUsers;
 };
 
 const getByIdUser = async (id) => {

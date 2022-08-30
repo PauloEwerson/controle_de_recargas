@@ -20,9 +20,13 @@ const createUser = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
   try {
-    const users = await userService.getAllUsers();
+    const resultAllUsers = await userService.getAllUsers();
+    
+    if (resultAllUsers.message) {
+      return res.status(409).json(resultAllUsers);
+    }
 
-    return res.status(200).json(users);
+    return res.status(200).json(resultAllUsers);
   } catch (error) { 
     console.log(error);
     return res.status(500).json(ERROR_MESSAGE);
@@ -33,13 +37,13 @@ const getByIdUser = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const userById = await userService.getByIdUser(id);
+    const resultUserById = await userService.getByIdUser(id);
     
-    if (userById.message) {
-      return res.status(404).json(userById);
+    if (resultUserById.message) {
+      return res.status(404).json(resultUserById);
     }
 
-    return res.status(200).json(userById);
+    return res.status(200).json(resultUserById);
   } catch (error) { 
     console.log(error);
     return res.status(500).json(ERROR_MESSAGE);
