@@ -8,13 +8,14 @@ const tokenValidation = (req, res, next) => {
       }
       
       const dataToken = tokenHelper.verifyToken(authorization);
-      if (dataToken.email !== req.email) {
+      if (dataToken.error) {
         return res.status(401).json({ message: 'Expired or invalid token' });
       }
+
         next();
     } catch (error) {
-        res.status(401).json({ message: 'Você não deveria estar aqui' });
+        res.status(401).json({ message: 'No access authorization' });
     }
 };
 
-module.exports = tokenValidation;
+module.exports = { tokenValidation };

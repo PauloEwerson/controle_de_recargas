@@ -11,8 +11,13 @@ const createToken = (payload) => {
 };
 
 const verifyToken = (token) => {
-  const payload = jwt.verify(token, JWT_SECRET);
-  return payload;
+  try {
+    const payload = jwt.verify(token, JWT_SECRET);
+    return payload;
+  } catch (error) {
+    console.log(error);
+    return { error };
+  }
 };
 
 module.exports = { createToken, verifyToken };
