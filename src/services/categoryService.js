@@ -12,6 +12,16 @@ const createCategory = async (name) => {
   return dataValues;
 };
 
+const getAllCategories = async () => {
+  const resultCategories = await Category.findAll();
+  if (resultCategories.length === 0) {
+    return { message: 'There are no categories registered' };
+  }
+
+  return resultCategories;
+};
+
 module.exports = {
   createCategory,
+  getAllCategories,
 };

@@ -10,4 +10,8 @@ mdAuth.tokenValidation,
 mdCategory.validCategory,
 categoryController.createCategory);
 
+categoryRoute.get('/',
+mdAuth.tokenValidation,
+categoryController.getAllCategories);
+
 module.exports = categoryRoute;

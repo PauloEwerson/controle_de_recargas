@@ -18,6 +18,21 @@ const createCategory = async (req, res) => {
   }
 };
 
+const getAllCategories = async (req, res) => {
+  try {
+    const resultCategories = await categoryService.getAllCategories();
+    if (resultCategories.message) {
+      return res.status(409).json(resultCategories);
+    }
+
+    return res.status(200).json(resultCategories);
+  } catch (error) { 
+    console.log(error);
+    return res.status(500).json(ERROR_MESSAGE);
+  }
+};
+
 module.exports = {
   createCategory,
+  getAllCategories,
 };
