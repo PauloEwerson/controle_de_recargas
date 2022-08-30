@@ -1,4 +1,5 @@
 const { User } = require('../database/models');
+const tokenHelper = require('../helpers/token');
 
 const createUser = async (userData) => {
   const resultUser = await User.findAll({ where: { email: userData.email } });
@@ -9,7 +10,8 @@ const createUser = async (userData) => {
 
   await User.create(userData);
 
-  return resultUser;
+  const token = tokenHelper.createToken({ email: userData.email });
+  return token;
 };
 
 module.exports = {
