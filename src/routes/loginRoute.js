@@ -1,9 +1,9 @@
 const { Router } = require('express');
-const blogController = require('../controllers/blogController');
+const loginController = require('../controllers/loginController');
 const middlewar = require('../middlewares/mdLogin');
 
-const blogRoute = Router();
+const loginRoute = Router();
 
-blogRoute.post('/', middlewar.mdLogin, blogController.login);
+loginRoute.post('/', middlewar.mdLogin, loginController.login);
 
-module.exports = blogRoute;
+module.exports = loginRoute;

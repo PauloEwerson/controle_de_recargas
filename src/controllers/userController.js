@@ -1,4 +1,3 @@
-// const jwt = require('jsonwebtoken');
 const userService = require('../services/userService');
 
 const ERROR_MESSAGE = 'Server error';
