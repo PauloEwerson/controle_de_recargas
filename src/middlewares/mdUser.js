@@ -4,7 +4,7 @@ const joiDisplayName = Joi.string().min(8).required();
 const joiEmail = Joi.string().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } });
 const joiPassword = Joi.string().min(6).required();
 
-const mdUser = (req, res, next) => {
+const validUser = (req, res, next) => {
   const validDisplayName = joiDisplayName.validate(req.body.displayName);
   if (validDisplayName.error) {
     return res.status(400).json({
@@ -26,5 +26,5 @@ const mdUser = (req, res, next) => {
 };
 
 module.exports = {
-  mdUser,
+  validUser,
 };

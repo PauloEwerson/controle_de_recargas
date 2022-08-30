@@ -1,9 +1,12 @@
 const { Router } = require('express');
 const userController = require('../controllers/userController');
-const middlewar = require('../middlewares/mdUser');
+const mdUser = require('../middlewares/mdUser');
+// const mdAuth = require('../middlewares/mdAuth');
 
 const userRoute = Router();
 
-userRoute.post('/', middlewar.mdUser, userController.createUser);
+userRoute.post('/', mdUser.validUser, userController.createUser);
+// userRoute.get('/', mdAuth.tokenValidation, userController.getAllUsers);
+userRoute.get('/', userController.getAllUsers);
 
 module.exports = userRoute;
