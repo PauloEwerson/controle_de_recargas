@@ -4,6 +4,7 @@ const ERROR_MESSAGE = 'Server error';
 
 const createPost = async (req, res) => {
   const dataPost = req.body;
+  const { authorization } = req.headers;
 
   try {
   const resultCategory = await postService.checkCategoryExists(dataPost.categoryIds);
@@ -12,7 +13,7 @@ const createPost = async (req, res) => {
   }
 
   if (resultCategory) {
-    const resultPost = await postService.createPost(dataPost);
+    const resultPost = await postService.createPost(dataPost, authorization);
     return res.status(201).json(resultPost);
   }
   } catch (error) { 
