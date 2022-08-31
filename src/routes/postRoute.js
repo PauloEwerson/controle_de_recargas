@@ -14,4 +14,8 @@ postRoute.get('/',
 mdAuth.tokenValidation,
 postController.getAllBlogPosts);
 
+postRoute.get('/:id',
+mdAuth.tokenValidation,
+postController.getByIdBlogPost);
+
 module.exports = postRoute;
