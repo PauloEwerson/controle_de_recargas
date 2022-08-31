@@ -7,9 +7,7 @@ const postSchema = Joi.object({
 });
 
 const validPost = (req, res, next) => {
-  console.log('req.body', req.body);
   const { error } = postSchema.validate(req.body);
-  console.log('ERRORRR', error);
   if (error) {
     return res.status(400).json({
       message: 'Some required fields are missing' });
