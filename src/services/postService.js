@@ -3,6 +3,7 @@ const {
   Category,
   BlogPost,
   PostCategory,
+  User,
 } = require('../database/models');
 
 const config = require('../database/config/config');
@@ -42,7 +43,25 @@ const createPost = async (dataPost, authorization) => {
   return dataValues;
 };
 
+const getAllBlogPosts = async () => {
+  const resultAllUsers = await BlogPost.findAll({
+    include: [
+      {
+        model: User, as: 'user', attributes: { exclude: ['password'] },
+      },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  if (resultAllUsers.length === 0) {
+    return { message: 'There are no records' };
+  }
+
+  return resultAllUsers;
+};
+
 module.exports = {
   checkCategoryExists,
   createPost,
+  getAllBlogPosts,
 };

@@ -10,4 +10,8 @@ mdAuth.tokenValidation,
 mdPost.validPost,
 postController.createPost);
 
+postRoute.get('/',
+mdAuth.tokenValidation,
+postController.getAllBlogPosts);
+
 module.exports = postRoute;
