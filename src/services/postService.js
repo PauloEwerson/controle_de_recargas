@@ -93,8 +93,26 @@ const checkSameUser = async (authorization, resultCheckPost) => {
   if (dataValues.id !== id) {
     return { message: 'Unauthorized user' };
   }
-
   return resultCheckPost;
+};
+
+const updatePost = async (title, content, id) => {
+  await BlogPost.update(
+    { title, content },
+    { where: { id } },
+  );
+
+  const resultIpdatePost = await BlogPost.findOne(
+    { where: { id },
+    include: [
+      {
+        model: User, as: 'user', attributes: { exclude: ['password'] },
+      },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  },
+);
+return resultIpdatePost;
 };
 
 module.exports = {
@@ -104,4 +122,5 @@ module.exports = {
   getByIdBlogPost,
   checkPostExists,
   checkSameUser,
+  updatePost,
 };
