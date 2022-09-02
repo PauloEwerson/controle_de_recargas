@@ -7,16 +7,16 @@ const createPost = async (req, res) => {
   const { authorization } = req.headers;
 
   try {
-  const resultCategory = await postService.checkCategoryExists(dataPost.categoryIds);
-  if (resultCategory.message) {
-    return res.status(400).json(resultCategory);
-  }
+    const resultCategory = await postService.checkCategoryExists(dataPost.categoryIds);
+    if (resultCategory.message) {
+      return res.status(400).json(resultCategory);
+    }
 
-  if (resultCategory) {
-    const resultPost = await postService.createPost(dataPost, authorization);
-    return res.status(201).json(resultPost);
-  }
-  } catch (error) { 
+    if (resultCategory) {
+      const resultPost = await postService.createPost(dataPost, authorization);
+      return res.status(201).json(resultPost);
+    }
+  } catch (error) {
     console.log(error);
     return res.status(500).json(ERROR_MESSAGE);
   }
@@ -24,14 +24,14 @@ const createPost = async (req, res) => {
 
 const getAllBlogPosts = async (_req, res) => {
   try {
-  const resultBlogPost = await postService.getAllBlogPosts();
+    const resultBlogPost = await postService.getAllBlogPosts();
 
-  if (resultBlogPost.message) {
-    return res.status(400).json(resultBlogPost);
-  }
+    if (resultBlogPost.message) {
+      return res.status(400).json(resultBlogPost);
+    }
 
-  return res.status(200).json(resultBlogPost);
-  } catch (error) { 
+    return res.status(200).json(resultBlogPost);
+  } catch (error) {
     console.log(error);
     return res.status(500).json(ERROR_MESSAGE);
   }
@@ -41,14 +41,14 @@ const getByIdBlogPost = async (req, res) => {
   const { id } = req.params;
 
   try {
-  const resultBlogPostById = await postService.getByIdBlogPost(id);
+    const resultBlogPostById = await postService.getByIdBlogPost(id);
 
-  if (resultBlogPostById.message) {
-    return res.status(404).json(resultBlogPostById);
-  }
+    if (resultBlogPostById.message) {
+      return res.status(404).json(resultBlogPostById);
+    }
 
-  return res.status(200).json(resultBlogPostById[0]);
-  } catch (error) { 
+    return res.status(200).json(resultBlogPostById[0]);
+  } catch (error) {
     console.log(error);
     return res.status(500).json(ERROR_MESSAGE);
   }
@@ -68,10 +68,32 @@ const updatePost = async (req, res) => {
     if (resultCheckUser.message) {
       return res.status(401).json(resultCheckUser);
     }
-  const resultUpdatePost = await postService.updatePost(title, content, id);
+    const resultUpdatePost = await postService.updatePost(title, content, id);
 
-  return res.status(200).json(resultUpdatePost);
-  } catch (error) { 
+    return res.status(200).json(resultUpdatePost);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(ERROR_MESSAGE);
+  }
+};
+
+const deletePost = async (req, res) => {
+  const { id } = req.params;
+  const { authorization } = req.headers;
+
+  try {
+    const resultCheckPost = await postService.checkPostExists(id);
+    if (resultCheckPost.message) {
+      return res.status(404).json(resultCheckPost);
+    }
+    const resultCheckUser = await postService.checkSameUser(authorization, resultCheckPost);
+    if (resultCheckUser.message) {
+      return res.status(401).json(resultCheckUser);
+    }
+    
+    const resultDeletePost = await postService.deletePost(id);
+    return res.status(204).json(resultDeletePost);
+  } catch (error) {
     console.log(error);
     return res.status(500).json(ERROR_MESSAGE);
   }
@@ -82,4 +104,5 @@ module.exports = {
   getAllBlogPosts,
   getByIdBlogPost,
   updatePost,
+  deletePost,
 };

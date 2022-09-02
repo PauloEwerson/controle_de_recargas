@@ -83,7 +83,7 @@ const getByIdBlogPost = async (id) => {
 const checkPostExists = async (id) => {
   const resultBlogPost = await BlogPost.findAll({ where: { id } });
   if (resultBlogPost.length === 0) {
-    return { message: '"BlogPost" not found' };
+    return { message: 'Post does not exist' };
   }
   return resultBlogPost;
 };
@@ -91,7 +91,7 @@ const checkPostExists = async (id) => {
 const checkSameUser = async (authorization, resultCheckPost) => {
   const { dataValues } = resultCheckPost[0];
   const { id } = await checkUserLogged(authorization);
-  if (dataValues.id !== id) {
+  if (dataValues.userId !== id) {
     return { message: 'Unauthorized user' };
   }
   return resultCheckPost;
@@ -117,6 +117,13 @@ const updatePost = async (title, content, id) => {
   return resultIpdatePost;
 };
 
+const deletePost = async (id) => {
+  await BlogPost.destroy({
+    where: { id },
+  });
+  return { message: 'Post deleted successfully' };
+};
+
 module.exports = {
   checkCategoryExists,
   createPost,
@@ -125,4 +132,5 @@ module.exports = {
   checkPostExists,
   checkSameUser,
   updatePost,
+  deletePost,
 };

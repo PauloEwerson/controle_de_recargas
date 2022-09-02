@@ -23,4 +23,8 @@ mdAuth.tokenValidation,
 mdPost.validUpdate,
 postController.updatePost);
 
+postRoute.delete('/:id',
+mdAuth.tokenValidation,
+postController.deletePost);
+
 module.exports = postRoute;
