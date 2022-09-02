@@ -36,8 +36,23 @@ const getByIdUser = async (id) => {
   return resultUser;
 };
 
+const checkUserExists = async (id) => {
+  const resultUser = await User.findAll({ where: { id } });
+  if (resultUser.length === 0) {
+    return { message: 'User does not exist' };
+  }
+  return resultUser;
+};
+
+const deleteUser = async (id) => {
+  await User.destroy({ where: { id } });
+  return { message: 'User deleted successfully' };
+};
+
 module.exports = {
   createUser,
   getAllUsers,
   getByIdUser,
+  checkUserExists,
+  deleteUser,
 };
