@@ -56,14 +56,25 @@ const getByIdBlogPost = async (req, res) => {
 
 const updatePost = async (req, res) => {
   const { id } = req.params;
+  const { authorization } = req.headers;
+  // const { title, content } = req.body;
 
   try {
     const resultCheckPost = await postService.checkPostExists(id);
     if (resultCheckPost.message) {
       return res.status(401).json(resultCheckPost);
     }
+    const resultCheckUser = await postService.checkSameUser(authorization, resultCheckPost);
+    if (resultCheckUser.message) {
+      return res.status(401).json(resultCheckUser);
+    }
+  // const resultUpdatePost = await postService.updatePost(title, content);
 
-  return res.status(200).json(resultCheckPost);
+  // if (resultBlogPostById.message) {
+  //   return res.status(404).json(resultBlogPostById);
+  // }
+
+  return res.status(200).json(resultCheckUser);
   } catch (error) { 
     console.log(error);
     return res.status(500).json(ERROR_MESSAGE);

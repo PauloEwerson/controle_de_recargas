@@ -84,7 +84,17 @@ const checkPostExists = async (id) => {
   if (resultBlogPost.length === 0) {
     return { message: '"BlogPost" not found' };
   }
-  return true;
+  return resultBlogPost;
+};
+
+const checkSameUser = async (authorization, resultCheckPost) => {
+  const { dataValues } = resultCheckPost[0];
+  const { id } = await checkUserLogged(authorization);
+  if (dataValues.id !== id) {
+    return { message: 'Unauthorized user' };
+  }
+
+  return resultCheckPost;
 };
 
 module.exports = {
@@ -93,4 +103,5 @@ module.exports = {
   getAllBlogPosts,
   getByIdBlogPost,
   checkPostExists,
+  checkSameUser,
 };
