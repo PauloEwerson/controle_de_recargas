@@ -6,6 +6,11 @@ const postSchema = Joi.object({
   categoryIds: Joi.array().min(1).required(),
 });
 
+const updatePostSchema = Joi.object({
+  title: Joi.string().required(),
+  content: Joi.string().required(),
+});
+
 const validPost = (req, res, next) => {
   const { error } = postSchema.validate(req.body);
   if (error) {
@@ -15,6 +20,16 @@ const validPost = (req, res, next) => {
   next();
 };
 
+const validUpdate = (req, res, next) => {
+  const { error } = updatePostSchema.validate(req.body);
+  if (error) {
+    return res.status(400).json({
+      message: 'Some required fields are missing' });
+  }
+  next();
+};
+
 module.exports = {
   validPost,
+  validUpdate,
 };

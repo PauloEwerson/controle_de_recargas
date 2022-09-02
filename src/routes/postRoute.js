@@ -20,6 +20,7 @@ postController.getByIdBlogPost);
 
 postRoute.put('/:id',
 mdAuth.tokenValidation,
+mdPost.validUpdate,
 postController.updatePost);
 
 module.exports = postRoute;

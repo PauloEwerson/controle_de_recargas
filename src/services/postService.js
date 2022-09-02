@@ -62,15 +62,16 @@ const getAllBlogPosts = async () => {
 
 const getByIdBlogPost = async (id) => {
   const resultAllUsers = await BlogPost.findAll(
-    { where: { id },
-    include: [
-      {
-        model: User, as: 'user', attributes: { exclude: ['password'] },
-      },
-      { model: Category, as: 'categories', through: { attributes: [] } },
-    ],
-  },
-);
+    {
+      where: { id },
+      include: [
+        {
+          model: User, as: 'user', attributes: { exclude: ['password'] },
+        },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    },
+  );
 
   if (resultAllUsers.length === 0) {
     return { message: 'Post does not exist' };
@@ -103,16 +104,17 @@ const updatePost = async (title, content, id) => {
   );
 
   const resultIpdatePost = await BlogPost.findOne(
-    { where: { id },
-    include: [
-      {
-        model: User, as: 'user', attributes: { exclude: ['password'] },
-      },
-      { model: Category, as: 'categories', through: { attributes: [] } },
-    ],
-  },
-);
-return resultIpdatePost;
+    {
+      where: { id },
+      include: [
+        {
+          model: User, as: 'user', attributes: { exclude: ['password'] },
+        },
+        { model: Category, as: 'categories', through: { attributes: [] } },
+      ],
+    },
+  );
+  return resultIpdatePost;
 };
 
 module.exports = {
