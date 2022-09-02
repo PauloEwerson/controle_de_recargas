@@ -54,8 +54,25 @@ const getByIdBlogPost = async (req, res) => {
   }
 };
 
+const updatePost = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const resultCheckPost = await postService.checkPostExists(id);
+    if (resultCheckPost.message) {
+      return res.status(401).json(resultCheckPost);
+    }
+
+  return res.status(200).json(resultCheckPost);
+  } catch (error) { 
+    console.log(error);
+    return res.status(500).json(ERROR_MESSAGE);
+  }
+};
+
 module.exports = {
   createPost,
   getAllBlogPosts,
   getByIdBlogPost,
+  updatePost,
 };

@@ -79,9 +79,18 @@ const getByIdBlogPost = async (id) => {
   return resultAllUsers;
 };
 
+const checkPostExists = async (id) => {
+  const resultBlogPost = await BlogPost.findAll({ where: { id } });
+  if (resultBlogPost.length === 0) {
+    return { message: '"BlogPost" not found' };
+  }
+  return true;
+};
+
 module.exports = {
   checkCategoryExists,
   createPost,
   getAllBlogPosts,
   getByIdBlogPost,
+  checkPostExists,
 };
