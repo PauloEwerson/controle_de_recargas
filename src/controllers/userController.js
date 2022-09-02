@@ -63,6 +63,7 @@ const deleteUser = async (req, res) => {
     }
 
     const resultDeleteUser = await userService.deleteUser(id);
+    console.log('resultDeleteUser', resultDeleteUser);
     // verificar se o ID ta chegando em deleteUser
     return res.status(204).json(resultDeleteUser);
   } catch (error) {
