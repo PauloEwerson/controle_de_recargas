@@ -1,4 +1,4 @@
-const loginService = require('../services/loginService');
+const loginService = require('../../services/loginService/login');
 
 const ERROR_MESSAGE = 'Server error';
 

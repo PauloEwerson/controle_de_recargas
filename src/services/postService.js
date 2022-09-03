@@ -126,7 +126,7 @@ const deletePost = async (id) => {
 const searchPost = async (query) => {
   const search = await BlogPost.findAll({
     where: {
-      [Op.any]: [
+      [Op.or]: [
         { title: { [Op.like]: `%${query}%` } },
         { content: { [Op.like]: `%${query}%` } },
       ],
