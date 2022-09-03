@@ -14,6 +14,10 @@ postRoute.get('/',
 mdAuth.tokenValidation,
 postController.getAllBlogPosts);
 
+postRoute.get('/search',
+mdAuth.tokenValidation,
+postController.searchPost);
+
 postRoute.get('/:id',
 mdAuth.tokenValidation,
 postController.getByIdBlogPost);

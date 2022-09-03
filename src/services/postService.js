@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const { Op } = require('sequelize'); // biblioteca de operadores
 const {
   Category,
   BlogPost,
@@ -107,9 +108,7 @@ const updatePost = async (title, content, id) => {
     {
       where: { id },
       include: [
-        {
-          model: User, as: 'user', attributes: { exclude: ['password'] },
-        },
+        { model: User, as: 'user', attributes: { exclude: ['password'] } },
         { model: Category, as: 'categories', through: { attributes: [] } },
       ],
     },
@@ -124,6 +123,23 @@ const deletePost = async (id) => {
   return { message: 'Post deleted successfully' };
 };
 
+const searchPost = async (query) => {
+  const search = await BlogPost.findAll({
+    where: {
+      [Op.any]: [
+        { title: { [Op.like]: `%${query}%` } },
+        { content: { [Op.like]: `%${query}%` } },
+      ],
+    },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  return search;
+};
+
 module.exports = {
   checkCategoryExists,
   createPost,
@@ -133,4 +149,5 @@ module.exports = {
   checkSameUser,
   updatePost,
   deletePost,
+  searchPost,
 };
