@@ -95,7 +95,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(255),
     }}, 
     {
-      timestamps: true,
+      timestamps: false,
       tableName: 'Datas',
     });
 

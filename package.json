@@ -28,11 +28,11 @@
   "scripts": {
     "drop": "npx sequelize-cli db:drop",
     "prestart": "npx sequelize-cli db:create && npx sequelize-cli db:migrate",
+    "convert": "node src/helpers/excelToMySql/config.js",
     "seed": "npx sequelize-cli db:seed:all",
     "start": "node .",
     "debug": "nodemon .",
-    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json .",
-    "convert": "node src/helpers/excelToMySql/convert.js"
+    "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json ."
   },
   "devDependencies": {
     "eslint": "6.8.0",
